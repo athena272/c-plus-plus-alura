@@ -7,10 +7,12 @@
 #include <cstdlib>
 using namespace std;
 
-string secret_word;
-map<char, bool> guessed;
-vector<char> wrong_guesses;
+// Global variables
+string secret_word;         // The secret word to be guessed
+map<char, bool> guessed;    // A map to track guessed letters
+vector<char> wrong_guesses; // A vector to store incorrect guesses
 
+// Function to check if a guessed letter exists in the secret word
 bool letter_exists(char guess)
 {
     for (char letter : secret_word)
@@ -23,6 +25,7 @@ bool letter_exists(char guess)
     return false;
 }
 
+// Function to check if there are letters in the secret word that haven't been guessed
 bool not_guessed()
 {
     for (char letter : secret_word)
@@ -35,11 +38,13 @@ bool not_guessed()
     return false;
 }
 
+// Function to check if the maximum number of incorrect guesses has been reached
 bool not_hanged()
 {
     return wrong_guesses.size() < 5;
 }
 
+// Function to print the game header
 void print_header()
 {
     cout << "*********************" << endl;
@@ -48,6 +53,7 @@ void print_header()
     cout << endl;
 }
 
+// Function to print the incorrect guesses
 void print_errors()
 {
     cout << "Wrong guesses: ";
@@ -58,6 +64,7 @@ void print_errors()
     cout << endl;
 }
 
+// Function to print the current state of the word with guessed letters
 void print_word()
 {
     for (char letter : secret_word)
@@ -74,6 +81,7 @@ void print_word()
     cout << endl;
 }
 
+// Function to process a user's guess
 void guess()
 {
     cout << "Your guess: ";
@@ -94,6 +102,7 @@ void guess()
     cout << endl;
 }
 
+// Function to read words from a file
 vector<string> read_file()
 {
     ifstream file;
@@ -123,6 +132,7 @@ vector<string> read_file()
     }
 }
 
+// Function to randomly choose a word from the file
 void draw_word()
 {
     vector<string> words = read_file();
@@ -133,6 +143,7 @@ void draw_word()
     secret_word = words[randomly_chosen_index];
 }
 
+// Function to save a new list of words to the file
 void save_file(vector<string> new_list)
 {
     ofstream file;
@@ -154,6 +165,7 @@ void save_file(vector<string> new_list)
     }
 }
 
+// Function to add a new word to the file
 void add_word()
 {
     cout << "Enter the new word, using uppercase letters." << endl;
@@ -166,6 +178,7 @@ void add_word()
     save_file(word_list);
 }
 
+// Main function
 int main()
 {
     print_header();
@@ -173,15 +186,15 @@ int main()
     read_file();
     draw_word();
 
+    // Game loop
     while (not_guessed() && not_hanged())
     {
         print_errors();
-
         print_word();
-
         guess();
     }
 
+    // Game over
     cout << "Game over!" << endl;
     cout << "The secret word was: " << secret_word << endl;
     if (not_guessed())
@@ -200,4 +213,6 @@ int main()
             add_word();
         }
     }
+
+    return 0;
 }
