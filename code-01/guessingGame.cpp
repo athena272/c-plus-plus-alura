@@ -5,92 +5,92 @@ using namespace std;
 
 int main()
 {
-    // Apresenta uma mensagem de boas-vindas ao jogo
+    // Display a welcome message to the game
     cout << "**************************************" << endl;
-    cout << "* Bem-vindos ao jogo da adivinhação! *" << endl;
+    cout << "* Welcome to the Guessing Game!       *" << endl;
     cout << "**************************************" << endl;
 
-    // Solicita ao jogador que escolha o nível de dificuldade
-    cout << "Escolha o seu nível de dificuldade:" << endl;
-    cout << "Fácil (F), Médio (M) ou Difícil (D)" << endl;
+    // Ask the player to choose the difficulty level
+    cout << "Choose your difficulty level:" << endl;
+    cout << "Easy (E), Medium (M), or Hard (H)" << endl;
 
-    // Armazena o nível de dificuldade escolhido pelo jogador
-    char dificuldade;
-    cin >> dificuldade;
-    cout << "A dificuldade escolhida foi: "<< dificuldade << endl;
+    // Store the difficulty level chosen by the player
+    char difficulty;
+    cin >> difficulty;
+    cout << "The chosen difficulty is: " << difficulty << endl;
 
-    // Determina o número máximo de tentativas com base no nível de dificuldade
-    int numero_de_tentativas;
-    if (dificuldade == 'F')
+    // Determine the maximum number of attempts based on the difficulty level
+    int number_of_attempts;
+    if (difficulty == 'E')
     {
-        numero_de_tentativas = 15;
+        number_of_attempts = 15;
     }
-    else if (dificuldade == 'M')
+    else if (difficulty == 'M')
     {
-        numero_de_tentativas = 10;
+        number_of_attempts = 10;
     }
     else
     {
-        numero_de_tentativas = 5;
+        number_of_attempts = 5;
     }
 
-    // Gera um número aleatório entre 0 e 99 para ser o número secreto
+    // Generate a random number between 0 and 99 to be the secret number
     srand(time(NULL));
-    const int NUMERO_SECRETO = rand() % 100;
+    const int SECRET_NUMBER = rand() % 100;
 
-    // Inicializa variáveis para controle do jogo
-    bool nao_acertou = true;
-    int tentativas = 0;
-    double pontos = 1000.0;
+    // Initialize variables for game control
+    bool not_guessed = true;
+    int attempts = 0;
+    double points = 1000.0;
 
-    // Inicia um loop que representa as tentativas do jogador
-    for (tentativas = 1; tentativas <= numero_de_tentativas; tentativas++)
+    // Start a loop representing the player's attempts
+    for (attempts = 1; attempts <= number_of_attempts; attempts++)
     {
-        // Solicita ao jogador que faça um chute
-        int chute;
-        cout << "Tentativa " << tentativas << endl;
-        cout << "Qual seu chute? ";
-        cin >> chute;
+        // Ask the player to make a guess
+        int guess;
+        cout << "Attempt " << attempts << endl;
+        cout << "What's your guess? ";
+        cin >> guess;
 
-        // Calcula os pontos perdidos com base na diferença entre o chute e o número secreto
-        double pontos_perdidos = abs(chute - NUMERO_SECRETO) / 2.0;
-        pontos -= pontos_perdidos;
+        // Calculate points lost based on the difference between the guess and the secret number
+        double points_lost = abs(guess - SECRET_NUMBER) / 2.0;
+        points -= points_lost;
 
-        // Exibe o valor do chute do jogador
-        cout << "O valor do seu chute é: " << chute << endl;
+        // Display the value of the player's guess
+        cout << "Your guess is: " << guess << endl;
 
-        // Verifica se o chute é igual, maior ou menor que o número secreto
-        bool acertou = chute == NUMERO_SECRETO;
-        bool maior = chute > NUMERO_SECRETO;
+        // Check if the guess is equal, greater, or less than the secret number
+        bool correct = guess == SECRET_NUMBER;
+        bool greater = guess > SECRET_NUMBER;
 
-        // Exibe mensagens de feedback ao jogador
-        if (acertou)
+        // Display feedback messages to the player
+        if (correct)
         {
-            cout << "Parabéns! Você acertou o número secreto!" << endl;
-            nao_acertou = false;
+            cout << "Congratulations! You guessed the secret number!" << endl;
+            not_guessed = false;
             break;
         }
-        else if (maior)
+        else if (greater)
         {
-            cout << "Seu chute foi maior que o número secreto!" << endl;
+            cout << "Your guess was greater than the secret number!" << endl;
         }
         else
         {
-            cout << "Seu chute foi menor que o número secreto!" << endl;
+            cout << "Your guess was less than the secret number!" << endl;
         }
     }
 
-    // Exibe mensagem de fim de jogo e resultado
-    cout << "Fim de jogo!" << endl;
-    if (nao_acertou)
+    // Display end-of-game message and result
+    cout << "Game over!" << endl;
+    if (not_guessed)
     {
-        cout << "Você perdeu! Tente novamente!" << endl;
+        cout << "You lost! Try again!" << endl;
     }
     else
     {
-        cout << "Você acertou o número secreto em " << tentativas << " tentativas" << endl;
+        cout << "You guessed the secret number in " << attempts << " attempts" << endl;
         cout.precision(2);
         cout << fixed;
-        cout << "Sua pontuação foi de " << pontos << " pontos." << endl;
+        cout << "Your score was " << points << " points." << endl;
     }
 }
