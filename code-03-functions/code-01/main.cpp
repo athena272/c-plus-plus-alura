@@ -10,7 +10,7 @@ void fun(int x)
     x = 30;
 }
 
-void fun(int *ptr)
+void funPointer(int *ptr)
 {
     *ptr = 45;
 }
@@ -18,8 +18,11 @@ void fun(int *ptr)
 int main()
 {
     int x = 20;
-    fun(&x);
-    cout << "x = " << x;
+    fun(x);
+    cout << "Function without reference x = " << x << endl;
+
+    funPointer(&x);
+    cout << "Function Pointer x = " << x;
 
     return 0;
 }
