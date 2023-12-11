@@ -1,7 +1,6 @@
 // C++ Program to demonstrate working of
 // function using pointers
-#include <iostream>
-using namespace std;
+
 
 void fun(int x)
 {
